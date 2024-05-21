@@ -1,0 +1,53 @@
+# Rust specific
+/target
+**/*.rs.bk
+**/*.rs.swp
+**/*.rs~ # backup files
+Cargo.lock
+/pkg
+
+# WebAssembly specific
+wasm_target/
+*.wasm
+
+# Vite specific
+/node_modules
+/dist
+/public/pkg
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# MacOS
+.DS_Store
+
+# Linux
+*.lock
+
+# Temporary files
+*.tmp
+*.temp
+
+# Editor specific
+.idea/
+.vscode/
+*.swp
+*.swo
+*.bak
+*.un~
+*.tmp
+*.orig
+*.rej
+
+# Miscellaneous
+*.log
+*.patch
+*.diff
+*.cache
+*.sass-cache
+*.eslintcache
+*.psd
+*.tgz
+.env
