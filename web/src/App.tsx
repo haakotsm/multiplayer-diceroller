@@ -1,17 +1,16 @@
-import { useEffect, useState } from 'react'
-import './App.css'
-import init, { roll_dice } from './pkg/dice_roller.js'
-
-function App() {
-  const [results, setResult] = useState<Uint32Array[]>([])
-
+import { useEffect } from 'react';
+import { useSubscribe } from 'replicache-react';
+import './App.css';
+import { AppProps } from './main.js';
+import init from "./pkg/dice_roller.js";
+function App({ rep }: AppProps) {
   useEffect(() => {
-    init()
-  }, [])
-
+    init();
+  }, []);
+  const results = useSubscribe(rep, (tx) => tx.get<number[][]>("roll_dice"), { default: [] })
+  // console.log(results)
   function rollDice(sides: number, amount: number) {
-    const result = roll_dice(sides, amount)
-    setResult(state => [...state, result])
+    void rep.mutate.roll_dice({ amount, sides })
   }
   return (
     <>
@@ -32,15 +31,15 @@ function App() {
         rollDice(Number(sides ?? 6), Number(amount ?? 1))
       }}>
         <label>
-          Antal sidor:
+          Antall sider:
           <input type="number" name="sides" min="4" max="20" step="1" defaultValue="6" />
         </label>
         <label>
-          Antal terningar:
+          Antall terninger:
           <input type="number" name="amount" min="1" step="1" defaultValue="1" />
         </label>
         <button type="submit">Kast</button>
-        <button type='button' onClick={() => setResult([])}>Rensa</button>
+        <button type='button' onClick={() => rep.mutate.reset_rolls()}>Reset</button>
       </form>
       <ul>
         {results.map((result, index) => (
