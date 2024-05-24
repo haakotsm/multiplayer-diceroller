@@ -51,3 +51,9 @@ yarn-error.log*
 *.psd
 *.tgz
 .env
+
+node_modules/
+*.tsbuildinfo
+dist
+.env
+
