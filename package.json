@@ -10,7 +10,8 @@
     "format": "npm run format --ws",
     "check-format": "npm run check-format --ws",
     "lint": "npm run lint --ws",
-    "build": "npm run build -ws --if-present",
+    "build:wasm": "wasm-pack build rust/dice_roller --target web --out-dir web/src/pkg",
+    "build": "npm run build:wasm && npm run build -ws --if-present",
     "check-types": "npm run check-types --ws"
   },
   "type": "module",
